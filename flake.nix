@@ -3,29 +3,24 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs }:
+  outputs = inputs @ { self, nixpkgs, home-manager, ... }:
 
-    let 
-      system = "x86_64-linux";
-      pkgs = import nixpkgs{
-        inherit system;
-        config.allowUnfree = true;
-      };
-      lib = nixpkgs.lib;
+    let
+      user = "facu";
     in {
-      nixosConfigurations={
 
-        facu = lib.nixosSystem {
-          inherit system;
-          modules = [./configuration.nix];
+      nixosConfigurations=(                                               
+        import ./hosts {                                                   
+          inherit (nixpkgs) lib;
+          inherit inputs nixpkgs home-manager user;   # Also inherit home-manager so it does not need to be defined here.
+        }
+      );
 
-        };
-
-      };
-
-    };
-
+  };
 }
