@@ -1,4 +1,4 @@
-{ lib, inputs, nixpkgs, home-manager, ... }:
+{ lib, inputs, nixpkgs, user, home-manager, ... }:
 
 let
   system = "x86_64-linux";                                  # System architecture
@@ -18,6 +18,7 @@ in
     modules = [                                             # Modules that are used.
       ./virtualBox
       ./configuration.nix
+      ../nixosModules/dev
 
       home-manager.nixosModules.home-manager {              # Home-Manager module that is used.
         home-manager.useGlobalPkgs = true;

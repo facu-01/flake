@@ -1,19 +1,22 @@
 { config, lib, pkgs, user, ... }:
 
 { 
-  imports =                                   # Home Manager Modules
+  imports =[
+    ../hmModules/shell
+    ../hmModules/git
+  ];                               # Home Manager Modules
     # (import ../modules/editors) ++
     # (import ../modules/programs) ++
     # (import ../modules/services) ++
-    (import ../modules/shell);
+    # (import ../modules/shell);
 
   home = {
     username = "${user}";
     homeDirectory = "/home/${user}";
 
     packages = with pkgs; [
-     git
-     vscode 
+     vscode
+     google-chrome
     ];
     
     stateVersion = "22.05";

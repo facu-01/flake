@@ -11,10 +11,12 @@
     description = user;
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-       git
+       
     #  thunderbird
     ];
   };
+
+  users.defaultUserShell = pkgs.zsh;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
