@@ -16,8 +16,8 @@
     ];
   };
 
-  programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
+  programs.fish.enable = true;
+  users.defaultUserShell = pkgs.fish;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -66,5 +66,7 @@
     };
     stateVersion = "22.05";
   };
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
 }
