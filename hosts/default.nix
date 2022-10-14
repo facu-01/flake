@@ -32,4 +32,24 @@ in
     ];
   };
 
+  vmware = lib.nixosSystem {                              
+    inherit system;
+    specialArgs = { inherit inputs user; }; # Pass flake variable
+    modules = [                                             # Modules that are used.
+      ./vmware
+      ./configuration.nix
+      ../nixosModules/dev
+
+      home-manager.nixosModules.home-manager {              # Home-Manager module that is used.
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.extraSpecialArgs = { inherit user; };  # Pass flake variable
+        home-manager.users.${user} = {
+          imports = [(import ./home.nix)]; 
+          # ++ [(import ./desktop/home.nix)];
+        };
+      }
+    ];
+  };
+
 }
