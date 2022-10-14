@@ -11,11 +11,12 @@
     description = user;
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-       
-    #  thunderbird
+
+      #  thunderbird
     ];
   };
 
+  programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
   # Allow unfree packages
@@ -56,8 +57,10 @@
   #system.stateVersion = "22.05"; # Did you read the comment?
 
 
-  system = {                                # NixOS settings
-    autoUpgrade = {                         # Allow auto update
+  system = {
+    # NixOS settings
+    autoUpgrade = {
+      # Allow auto update
       enable = true;
       channel = "https://nixos.org/channels/nixos-unstable";
     };
