@@ -1,4 +1,4 @@
-{ pkgs, user, currentSystem, ... }:
+{ pkgs, user, currentHost, ... }:
 
 {
 
@@ -7,7 +7,7 @@
     enable = true;
 
     shellAliases = {
-      update = "sudo nixos-rebuild switch --flake /home/${user}/flake#${currentSystem}";
+      update = "sudo nixos-rebuild switch --flake /home/${user}/flake#${currentHost}";
     };
 
   };
