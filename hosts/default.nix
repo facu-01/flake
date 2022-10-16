@@ -20,7 +20,6 @@ in
         # Modules that are used.
         ./virtualBox
         ./configuration.nix
-        ../nixosModules/dev
 
         home-manager.nixosModules.home-manager
         {
@@ -44,7 +43,6 @@ in
         # Modules that are used.
         ./vmware
         ./configuration.nix
-        ../nixosModules/dev
 
         home-manager.nixosModules.home-manager
         {
