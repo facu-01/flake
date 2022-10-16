@@ -1,10 +1,6 @@
 { config, lib, pkgs, user, ... }:
 
-{ 
-  imports = [ 
-    ./docker.nix
-  ];
-                         
+{
   environment.systemPackages = with pkgs; [
 
     rnix-lsp # language support for nix
