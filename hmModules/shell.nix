@@ -6,7 +6,8 @@
     enable = true;
 
     shellAliases = {
-      update = "sudo nixos-rebuild switch --flake /home/${user}/flake#${currentHost}";
+      updateSwitch = "sudo nixos-rebuild switch --flake /home/${user}/flake#${currentHost}";
+      updateBoot = "sudo nixos-rebuild boot --flake /home/${user}/flake#${currentHost}";
     };
 
   };

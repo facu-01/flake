@@ -16,16 +16,72 @@
     description = user;
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-
       #  thunderbird
     ];
   };
 
-  programs.fish.enable = true;
-  users.defaultUserShell = pkgs.fish;
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  system = {
+    # NixOS settings
+    autoUpgrade = {
+      # Allow auto update
+      enable = true;
+      channel = "https://nixos.org/channels/nixos-unstable";
+    };
+    stateVersion = "22.05";
+  };
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+
+  # Bootloader.
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "/dev/sda";
+  boot.loader.grub.useOSProber = true;
+
+  networking.hostName = "nixos"; # Define your hostname.
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
+
+  # Enable networking
+  networking.networkmanager.enable = true;
+
+  # Set your time zone.
+  time.timeZone = "America/Argentina/Mendoza";
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.utf8";
+
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "es_AR.utf8";
+    LC_IDENTIFICATION = "es_AR.utf8";
+    LC_MEASUREMENT = "es_AR.utf8";
+    LC_MONETARY = "es_AR.utf8";
+    LC_NAME = "es_AR.utf8";
+    LC_NUMERIC = "es_AR.utf8";
+    LC_PAPER = "es_AR.utf8";
+    LC_TELEPHONE = "es_AR.utf8";
+    LC_TIME = "es_AR.utf8";
+  };
+
+
+  # Enable the X11 windowing system.
+  services.xserver.enable = true;
+
+
+  # Configure keymap in X11
+  services.xserver = {
+    layout = "es";
+    xkbVariant = "nodeadkeys";
+  };
+
+  # Configure console keymap
+  console.keyMap = "es";
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -62,16 +118,6 @@
   #system.stateVersion = "22.05"; # Did you read the comment?
 
 
-  system = {
-    # NixOS settings
-    autoUpgrade = {
-      # Allow auto update
-      enable = true;
-      channel = "https://nixos.org/channels/nixos-unstable";
-    };
-    stateVersion = "22.05";
-  };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
 }

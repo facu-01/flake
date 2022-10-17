@@ -16,7 +16,10 @@
 
       isNixFile = s: s.type == "directory" || nixpkgs.lib.strings.hasSuffix ".nix" s.name;
 
-      # TODO: filter in base of name name func example isActive
+      isDisabled = s:
+        nixpkgs.lib.strings.hasInfix "disabled"
+          (nixpkgs.lib.strings.toLower s.name);
+
 
       scanDirectory = path:
         nixpkgs.lib.lists.flatten
@@ -26,7 +29,7 @@
               then scanDirectory (path + "/${s.name}")
               else "${path}/${s.name}"
             )
-            (builtins.filter isNixFile
+            (builtins.filter (file: (isNixFile file) && !(isDisabled file))
               (nixpkgs.lib.attrsets.mapAttrsToList
                 (name: type: {
                   inherit name type;
